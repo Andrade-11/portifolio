@@ -7,7 +7,7 @@ export const experience: Experience[] = [
       en: 'Software Development Engineer',
       'pt-BR': 'Engenheiro de Desenvolvimento de Software',
     },
-    start: '2024-01-01',
+    start: '2023-12-01',
     current: true,
     employment: {
       en: 'Self-employed / Contractor',
@@ -37,7 +37,7 @@ export const experience: Experience[] = [
       en: 'Software Engineer',
       'pt-BR': 'Software Engineer',
     },
-    start: '2023-02-01',
+    start: '2023-01-01',
     end: '2024-01-31',
     employment: {
       en: 'Full-time',
@@ -67,7 +67,7 @@ export const experience: Experience[] = [
       en: 'Software QA Engineer',
       'pt-BR': 'Software QA Engineer',
     },
-    start: '2022-10-01',
+    start: '2022-09-01',
     end: '2023-02-28',
     employment: {
       en: 'Full-time',
@@ -93,7 +93,7 @@ export const experience: Experience[] = [
       en: 'Mid-Level Test Analyst',
       'pt-BR': 'Analista de Testes Pleno',
     },
-    start: '2022-02-01',
+    start: '2022-01-01',
     end: '2022-10-31',
     context: {
       en: 'Quality Assurance ownership for the ArtMed 360 team.',

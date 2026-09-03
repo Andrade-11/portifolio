@@ -506,7 +506,6 @@ main {
   padding-block: clamp(72px, 8vw, 98px);
 }
 
-.focus-grid,
 .principles,
 .tech-grid {
   display: grid;
@@ -515,19 +514,48 @@ main {
   border-top: 1px solid var(--line);
 }
 
-.focus-grid article,
 .principles div {
   min-height: 150px;
   padding: 22px 20px 0 0;
   border-right: 1px solid var(--line);
 }
 
-.focus-grid article p:not(.kicker),
 .principles p {
   max-width: 220px;
   margin: 28px 0 0;
   font-size: 16px;
   line-height: 1.4;
+}
+
+.focus-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  max-width: 760px;
+  margin-inline: auto;
+  border-top: 1px solid var(--line);
+}
+
+.focus-grid article {
+  min-height: 150px;
+  padding: 22px 28px 0;
+  border-right: 1px solid var(--line);
+}
+
+.focus-grid article:last-child {
+  border-right: 0;
+}
+
+.focus-grid article p:not(.kicker) {
+  max-width: 280px;
+  margin: 28px auto 0;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.focus-grid .kicker {
+  text-align: center;
 }
 
 .principles span {
@@ -1282,10 +1310,19 @@ footer {
     min-height: 0;
   }
 
-  .focus-grid article,
   .principles div {
     min-height: 124px;
     border-right: 0;
+  }
+
+  .focus-grid article {
+    min-height: 124px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .focus-grid article:last-child {
+    border-bottom: 0;
   }
 
   .health-visual {

@@ -25,6 +25,6 @@ export const profile = {
   links: {
     github: 'https://github.com/Andrade-11',
     linkedin: 'https://www.linkedin.com/in/gabrielandrade11/',
-    email: 'mailto:hello@example.com',
+    email: 'mailto:andrade.prog.11@gmail.com',
   },
 };

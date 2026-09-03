@@ -296,8 +296,9 @@ function setCanonical(href: string) {
 
 function formatPeriod(item: ExperienceType, locale: Locale) {
   const format = new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric' });
-  const start = format.format(new Date(item.start));
-  const end = item.current ? copy[locale].labels.present : item.end ? format.format(new Date(item.end)) : copy[locale].labels.unavailable;
+  const capitalizeDate = (date: string) => date.charAt(0).toUpperCase() + date.slice(1);
+  const start = capitalizeDate(format.format(new Date(item.start)));
+  const end = item.current ? copy[locale].labels.present : item.end ? capitalizeDate(format.format(new Date(item.end))) : copy[locale].labels.unavailable;
   return `${start} - ${end}`;
 }
 
@@ -353,7 +354,7 @@ function Header() {
   return (
     <header className="nav">
       <Link className="brand" to="/" aria-label="Gabriel Andrade">
-        GA<span>.</span>
+        GA
       </Link>
       <button className="menu-btn" aria-label={c.aria.menu} onClick={() => setOpen((value) => !value)}>
         {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
@@ -382,7 +383,7 @@ function Shell({ children }: { children: React.ReactNode }) {
       <Header />
       <main>{children}</main>
       <footer>
-        <div className="footer-mark">GA<span>.</span></div>
+        <div className="footer-mark">GA</div>
         <p>{text(profile.description, locale)}</p>
         <nav className="footer-links" aria-label={copy[locale].aria.socialLinks}>
           <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label={copy[locale].aria.github}>GitHub</a>
