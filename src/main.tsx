@@ -6,7 +6,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { academic } from './data/academic';
 import { currentFocus } from './data/current';
 import { experience } from './data/experience';
-import { leadership } from './data/leadership';
 import { profile } from './data/profile';
 import { projects } from './data/projects';
 import { technologies } from './data/technologies';
@@ -43,6 +42,7 @@ const copy = {
       experienceTitle: 'Experience - Gabriel Andrade',
       healthTitle: 'Health + Tech - Gabriel Andrade',
       aboutTitle: 'About - Gabriel Andrade',
+      contactTitle: 'Contact - Gabriel Andrade',
       notFoundTitle: 'Page not found - Gabriel Andrade',
     },
     hero: {
@@ -86,6 +86,10 @@ const copy = {
       experience: 'A professional path from quality engineering and automation into software engineering, full-stack development and full-cycle product work.',
       health: 'Academic projects, digital health initiatives and technology applied to healthcare contexts.',
       about: 'My foundation in quality shaped how I build software: with attention to reliability, testability, integration and delivery.',
+      contactIntro: 'Choose the channel that works best for you. I would be glad to hear about your project, idea or opportunity.',
+      email: 'Email',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
       aboutIntro: 'I started in software through Quality Engineering, grew into automation, and expanded into software engineering across frontend, backend, integrations and product delivery.',
       aboutExperience: 'From automation and quality to full-stack development, my path gave me a broad view of the software cycle - from validation and integration to product construction and evolution.',
       notFound: 'The page you are looking for does not exist.',
@@ -143,6 +147,7 @@ const copy = {
       experienceTitle: 'Experiência - Gabriel Andrade',
       healthTitle: 'Saúde + Tech - Gabriel Andrade',
       aboutTitle: 'Sobre - Gabriel Andrade',
+      contactTitle: 'Contato - Gabriel Andrade',
       notFoundTitle: 'Página não encontrada - Gabriel Andrade',
     },
     hero: {
@@ -186,6 +191,10 @@ const copy = {
       experience: 'Da automação e qualidade ao desenvolvimento full-stack, minha trajetória me deu uma visão ampla do ciclo de software - da validação e integração à construção e evolução de produtos.',
       health: 'Projetos acadêmicos, iniciativas de saúde digital e tecnologia aplicada a contextos de cuidado em saúde.',
       about: 'Construo software com qualidade desde o início.',
+      contactIntro: 'Escolha o canal que preferir. Vou gostar de conhecer seu projeto, sua ideia ou sua oportunidade.',
+      email: 'Email',
+      github: 'GitHub',
+      linkedin: 'LinkedIn',
       aboutIntro: 'Minha trajetória começou em Engenharia de Qualidade e automação de testes, uma experiência que influencia até hoje a forma como desenvolvo software. Ao longo dos anos, ampliei minha atuação para frontend, backend, integrações e desenvolvimento de produtos de ponta a ponta.',
       aboutExperience: 'Da automação e qualidade ao desenvolvimento full-stack, minha trajetória me deu uma visão ampla do ciclo de software - da validação e integração à construção e evolução de produtos.',
       notFound: 'A página que você está procurando não existe.',
@@ -364,33 +373,37 @@ function Header() {
         <NavLink to="/experience">{c.nav.experience}</NavLink>
         <NavLink to="/health-tech">{c.nav.health}</NavLink>
         <NavLink to="/about">{c.nav.about}</NavLink>
-        <a href={profile.links.email}>{c.nav.contact}</a>
-        <span className="divider" aria-hidden="true" />
+        <Link to="/contact">{c.nav.contact}</Link>
+      </nav>
+      <div className="header-tools">
         <button className="theme" aria-label={c.aria.theme} title={theme} onClick={cycleTheme}>
           {resolvedDark ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
         </button>
         <LanguageMenu />
-      </nav>
+      </div>
     </header>
   );
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
   const { locale } = useLocale();
+  const location = useLocation();
 
   return (
     <>
       <Header />
       <main>{children}</main>
-      <footer>
-        <div className="footer-mark">GA</div>
-        <p>{text(profile.description, locale)}</p>
-        <nav className="footer-links" aria-label={copy[locale].aria.socialLinks}>
-          <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label={copy[locale].aria.github}>GitHub</a>
-          <a href={profile.links.linkedin} target="_blank" rel="noreferrer" aria-label={copy[locale].aria.linkedin}>LinkedIn</a>
-        </nav>
-        <p className="muted">© {new Date().getFullYear()} Gabriel Andrade</p>
-      </footer>
+      {location.pathname !== '/contact' && (
+        <footer>
+          <div className="footer-mark">GA</div>
+          <p>{text(profile.description, locale)}</p>
+          <nav className="footer-links" aria-label={copy[locale].aria.socialLinks}>
+            <a href={profile.links.github} target="_blank" rel="noreferrer" aria-label={copy[locale].aria.github}>GitHub</a>
+            <a href={profile.links.linkedin} target="_blank" rel="noreferrer" aria-label={copy[locale].aria.linkedin}>LinkedIn</a>
+          </nav>
+          <p className="muted">© {new Date().getFullYear()} Gabriel Andrade</p>
+        </footer>
+      )}
     </>
   );
 }
@@ -485,6 +498,7 @@ function HeroPhoto() {
 function Home() {
   const { locale } = useLocale();
   const c = useCopy();
+  const [showEmail, setShowEmail] = useState(false);
   useSeo(c.seo.homeTitle, c.seo.homeDescription);
   const featured = projects.filter((project) => project.featured);
 
@@ -578,23 +592,16 @@ function Home() {
         </div>
       </section>
 
-      <section className="wrap section leadership">
-        <div>
-          <p className="eyebrow">07 / {c.home.leadership}</p>
-          <h2>{c.home.leadershipTitle}</h2>
-        </div>
-        <div>
-          <p className="body-copy">{c.home.leadershipCopy}</p>
-          {leadership.slice(0, 2).map((item) => <div className="line-item" key={text(item, locale)}><Check size={16} aria-hidden="true" />{text(item, locale)}</div>)}
-          <Link className="text-link" to="/about">{c.home.moreAbout} <ArrowUpRight size={16} aria-hidden="true" /></Link>
-        </div>
-      </section>
-
       <section className="contact">
         <div className="wrap">
           <p className="eyebrow">{c.home.contactEyebrow}</p>
           <h2>{c.home.contactTitle}</h2>
-          <a className="button primary" href={profile.links.email}>{c.home.contactCta} <ArrowUpRight size={17} aria-hidden="true" /></a>
+          <div className="contact-actions">
+            <button className="button primary" type="button" onClick={() => setShowEmail(true)}>
+              {c.home.contactCta} <ArrowUpRight size={17} aria-hidden="true" />
+            </button>
+            {showEmail && <a className="contact-email" href={profile.links.email}>andrade.prog.11@gmail.com</a>}
+          </div>
         </div>
       </section>
     </>
@@ -905,6 +912,37 @@ function AboutPage() {
   );
 }
 
+function ContactPage() {
+  const c = useCopy();
+  useSeo(c.seo.contactTitle, c.pages.contactIntro);
+
+  return (
+    <>
+      <section className="page-intro wrap contact-intro">
+        <h1>{c.nav.contact}</h1>
+        <p className="lede">{c.pages.contactIntro}</p>
+      </section>
+      <section className="wrap contact-page-links" aria-label={c.nav.contact}>
+        <a className="contact-page-link" href={profile.links.email}>
+          <span className="kicker">{c.pages.email}</span>
+          <strong>andrade.prog.11@gmail.com</strong>
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </a>
+        <a className="contact-page-link" href={profile.links.github} target="_blank" rel="noreferrer">
+          <span className="kicker">{c.pages.github}</span>
+          <strong>Andrade-11</strong>
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </a>
+        <a className="contact-page-link" href={profile.links.linkedin} target="_blank" rel="noreferrer">
+          <span className="kicker">{c.pages.linkedin}</span>
+          <strong>Gabriel Andrade</strong>
+          <ArrowUpRight size={20} aria-hidden="true" />
+        </a>
+      </section>
+    </>
+  );
+}
+
 function NotFound() {
   const c = useCopy();
   useSeo(c.seo.notFoundTitle, c.pages.notFound);
@@ -939,6 +977,7 @@ function App() {
             <Route path="/experience" element={<ExperiencePage />} />
             <Route path="/health-tech" element={<HealthPage />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Shell>
