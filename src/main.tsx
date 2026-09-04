@@ -15,6 +15,14 @@ import './styles.css';
 type Theme = 'light' | 'dark' | 'system';
 
 const fallbackLocale: Locale = 'en';
+const productionUrl = 'https://andrade-11.github.io/portifolio/';
+const socialImageUrl = `${productionUrl}social-preview.png`;
+const socialImageAlt = 'Gabriel Andrade — Software Engineering Portfolio';
+
+function getProductionPageUrl() {
+  const pathname = window.location.pathname.replace(/^\/portifolio(?=\/|$)/, '').replace(/\/$/, '');
+  return `${productionUrl.replace(/\/$/, '')}${pathname || '/'}`;
+}
 
 const copy = {
   en: {
@@ -36,8 +44,8 @@ const copy = {
       nextImage: 'Next image',
     },
     seo: {
-      homeTitle: 'Gabriel Andrade - Software Engineer',
-      homeDescription: 'Software engineer with a background in Quality Engineering, full-stack development, full-cycle product work and health technology.',
+      homeTitle: 'Gabriel Andrade — Software Engineering Portfolio',
+      homeDescription: 'Software Engineer focused on full-stack development, legacy modernization, web and mobile applications, backend architecture, cloud infrastructure and AI.',
       projectsTitle: 'Projects - Gabriel Andrade',
       experienceTitle: 'Experience - Gabriel Andrade',
       healthTitle: 'Health + Tech - Gabriel Andrade',
@@ -279,7 +287,19 @@ function useSeo(title: string, description: string) {
     setMeta('description', description);
     setMeta('og:title', title, 'property');
     setMeta('og:description', description, 'property');
-    setCanonical(window.location.href);
+    setMeta('og:type', 'website', 'property');
+    setMeta('og:url', getProductionPageUrl(), 'property');
+    setMeta('og:image', socialImageUrl, 'property');
+    setMeta('og:image:width', '1200', 'property');
+    setMeta('og:image:height', '630', 'property');
+    setMeta('og:image:alt', socialImageAlt, 'property');
+    setMeta('og:site_name', 'Gabriel Andrade', 'property');
+    setMeta('twitter:card', 'summary_large_image');
+    setMeta('twitter:title', title);
+    setMeta('twitter:description', description);
+    setMeta('twitter:image', socialImageUrl);
+    setMeta('twitter:image:alt', socialImageAlt);
+    setCanonical(getProductionPageUrl());
   }, [description, title]);
 }
 
